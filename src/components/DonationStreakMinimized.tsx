@@ -46,7 +46,7 @@ export default function DonationStreakMinimized({
               position: 'absolute',
               left: 0,
               top: '50%',
-              height: '2px',
+              height: '1px',
               width: '12.5%',
               background: 'rgba(255, 255, 255, 0.2)',
               transform: 'translateY(-50%)',
@@ -73,10 +73,19 @@ export default function DonationStreakMinimized({
                   key={index} 
                   className={`progress-point ${isFilled ? 'filled' : 'empty'} ${isSpecialMilestone ? 'special-milestone' : ''}`}
                   title={`${pointValue} donaciones`}
-                  style={{position: 'absolute', left: `${position}%`, transform: 'translateX(-50%)'}}
+                  style={{
+                    position: 'absolute', 
+                    left: `${position}%`, 
+                    transform: 'translateX(-50%)',
+                    width: '12px',
+                    height: '12px',
+                  }}
                 >
                   {isSpecialMilestone && (
-                    <div className="milestone-star-small">★</div>
+                    <div className="milestone-star-small" style={{
+                      fontSize: '8px',
+                      top: '-11px',
+                    }}>★</div>
                   )}
                 </div>
               );

@@ -106,11 +106,6 @@ export default function DonationStreakPopup({
             <div className="points-bar-container">
               <div className="debug-info">
                 <div>Donaciones: {streakData.totalDonations}</div>
-                <div className="debug-points">
-                  {Array(8).fill(0).map((_, index) => (
-                    <div key={index} className="debug-point">{(index + 1) * 5}</div>
-                  ))}
-                </div>
               </div>
               <div className="points-progress-bar">
                 <div className="milestone-label-left">0</div>
