@@ -4,6 +4,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import Header from '@/components/sections/Header';
 import Footer from '@/components/sections/Footer';
+import { DataQueryButton } from '@/components/DataQueryButton';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,6 +27,7 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        <DataQueryButton />
         <Toaster />
       </body>
     </html>

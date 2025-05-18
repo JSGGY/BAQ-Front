@@ -5,6 +5,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StreakData, handleStreakCalculation, createConfetti } from './DonationStreak';
 import DonationStreakPopup from './DonationStreakPopup';
 import DonationStreakMinimized from './DonationStreakMinimized';
+import Image from 'next/image';
+
+// Array de nombres de donantes
+const donorNames = [
+  "María Perez", 
+  "Carlos Vega", 
+  "Ana Luisa", 
+  "Juan Carlos",
+  "Sofia Torres",
+  "Pedro Zambrano",
+  "Lucia Mendez",
+  "Roberto Díaz"
+];
 
 export default function ThankYou() {
   // Estados para el manejo de la racha de donaciones
@@ -22,6 +35,19 @@ export default function ThankYou() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [streakAnimating, setStreakAnimating] = useState(false);
   const [donationHistory, setDonationHistory] = useState<Array<{date: string, amount?: number, breakPoint?: boolean, milestone?: boolean}>>([]);
+  
+  // Seleccionar un nombre aleatorio del array (una sola vez al cargar la página)
+  const [donorName] = useState(() => {
+    const randomIndex = Math.floor(Math.random() * donorNames.length);
+    return donorNames[randomIndex];
+  });
+  
+  // Fecha actual formateada
+  const currentDate = new Date().toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
   
   const confettiRef = useRef<HTMLDivElement | null>(null);
   
@@ -113,10 +139,53 @@ export default function ThankYou() {
   
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-8">
+      {/* Certificado de donación */}
+      <div className="w-full max-w-md mb-6 relative">
+        <div className="relative">
+          <Image 
+            src="/documento.jpeg"
+            alt="Certificado de donación"
+            width={600}
+            height={1200}
+            priority
+            className="w-full h-auto"
+          />
+          
+          {/* Nombre del donante estilo certificado */}
+          <div 
+            className="absolute w-full text-center" 
+            style={{ 
+              top: 'calc(65% - 21px)' // Un ajuste más fino, subiendo solo 4px más (total 14px)
+            }}
+          >
+            <div 
+              className="inline-block px-8 py-2 text-white font-bold text-2xl"
+              style={{ 
+                fontFamily: 'cursive, serif',
+                textShadow: '1px 1px 2px rgba(0,0,0,0.4)'
+              }}
+            >
+              {donorName}
+            </div>
+          </div>
+          
+          {/* Fecha del certificado */}
+          <div 
+            className="absolute w-full text-center" 
+            style={{ bottom: '20%' }}
+          >
+            <div className="inline-block text-sm text-white">
+              {currentDate}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Contenido original */}
       <div className="rounded-lg border bg-card p-8 text-center shadow-sm">
-        <h1 className="text-3xl font-bold mb-4">¡Gracias por tu compra!</h1>
+        <h1 className="text-3xl font-bold mb-4">¡Gracias por tu donación!</h1>
         <p className="mb-6 text-lg">
-          Tu pago ha sido procesado correctamente.
+          Tu aporte se transforma en platos llenos para quienes más lo necesitan.
         </p>
         <Link 
           href="/"
